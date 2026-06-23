@@ -1,0 +1,6 @@
+data:
+  random_seed: 42
+  n_users: 1000
+  n_events: 100000
+  anomaly_fraction: 0.1
+  raw_path: "data/raw/events.csv"
