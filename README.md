@@ -63,6 +63,52 @@ The resources used are -
 - Understand the code rather than just using in my repo
 
 
+## Week 3
+
+Thoroughly understood the code for the generation of the synthetic financial data.
+
+### The dataset is produced by `generate_events.py` in four stages:
+
+1. **User profile generation** (`build_user_profiles()`) — creates synthetic users, each with a home country, IP address, preferred device, typical trade volume, typical deposit amount, and account creation date.
+2. **Normal event generation** (`generate_normal_event()`) — generates everyday activity (logins, trades, deposits, withdrawals, sessions, KYC changes) consistent with each user's baseline profile.
+3. **Anomaly injection** — a subset of users is deliberately flagged as anomalous and made to generate known suspicious behavior patterns.
+4. **Export** (`generate_dataset()`) — everything is combined and written to `events.csv`.
+
+### Events 
+
+| Event Type | Count | Description |
+|---|---|---|
+| `trade` | 17,446 | Instrument, lot size, volume, P&L, margin used, trade duration |
+| `login` | 11,014 | IP, country, device, success/failure, timezone gap |
+| `deposit` | 7,565 | Amount, method |
+| `session` | 6,021 | Duration, page clicks, click rate |
+| `withdrawal` | 5,115 | Amount, whether immediate after a deposit |
+| `kyc_change` | 2,839 | Type of KYC field changed |
+
+### Dataset structure
+
+The dataset contains the following features for each user event.
+
+| Category | Features |
+|-----------|----------|
+| **Event Metadata** | `event_id`, `user_id`, `event_type`, `timestamp`, `hour_of_day`, `day_of_week`, `is_weekend` |
+| **Anomaly Labels** | `is_anomalous`, `anomaly_type` |
+| **Login Features** | `ip_address`, `country`, `device`, `login_success`, `failed_attempts`, `timezone_gap_hours` |
+| **Trade Features** | `instrument`, `lot_size`, `trade_volume`, `pnl`, `margin_used`, `trade_duration_seconds`, `trade_volume_vs_baseline`, `is_night_trade` |
+| **Deposit / Withdrawal Features** | `amount`, `method`, `is_immediate_withdrawal` |
+| **Session Features** | `session_duration_mins`, `page_clicks`, `click_rate_per_min` |
+| **KYC Features** | `kyc_change_type` |
+| **Account Features** | `account_age_days` |
+
+### Key insights
+
+- creating visualizations and mathematics for the anomalous patterns
+- The scalability of the code increases as we use the config directory to specify the configurations of the dataset rather than hard-coding. 
+
+
+
+
+
 
 
 
