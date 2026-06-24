@@ -4,3 +4,22 @@ data:
   n_events: 100000
   anomaly_fraction: 0.1
   raw_path: "data/raw/events.csv"
+  processed_path: "data/processed/features.csv"
+
+
+features:
+  rolling_windows:
+    - 5
+    - 10
+
+  z_score_threshold: 3.0
+
+  burst_windows_minutes:
+    - 5
+    - 30
+
+  login_window: 10
+
+  failed_attempts_window: 5
+
+  deposit_window: 5
