@@ -111,6 +111,42 @@ The dataset contains the following features for each user event.
 python .\src\data_gen\generate_events.py 
 ```
 
+## Week 4
+
+### Features created from raw event logs
+
+1. **Time-based features** — `time_since_last_event_sec`, `time_since_last_login_sec`, `time_since_last_deposit_sec`
+2. **Rolling window statistics** — mean/std of trade volume and P&L over the last 5, 10, and 30 events (`roll_5_trade_vol_mean`, `roll_10_pnl_std`, etc.)
+3. **Session activity** — rolling mean click rate (`roll_5_click_rate_mean`, `roll_10_click_rate_mean`, `roll_30_click_rate_mean`)
+4. **Burst features** — `burst_count_5min`, `burst_count_30min` (event counts in short recent windows)
+5. **Login behavior** — `unique_ips_last_10_logins`, `unique_countries_last_10_logins`, `unique_devices_last_10_logins`, `rolling_failed_attempts_5`
+6. **Financial behavior** — `roll_5_deposit_sum`, `withdrawal_to_deposit_ratio`
+7. **Statistical z-scores** — `trade_vol_zscore`, `pnl_zscore`, `amount_zscore`, `session_duration_zscore`, 
+
+### Why these features are useful for anomaly detection
+
+These feautures are important because raw data only gives us informationa about a single user event. It does not compare the certain event with the usual behaviour of the user.
+These features are the comparitive measures that can be used to judge the deviatin of a user behaviour from the normal, thus helping in finding the anomalies.
+
+
+### Key observations
+
+- The raw data isnt solely useful to identify anomalies. We have to parse the raw data creating features that are the measures of the deviation of a user behaviour from norm.
+- also a feature like burst cant be taken as a sure sign of an anomaly but can be considered as a strong sign of one 
+
+### Commmands to generate the features.csv
+
+```
+python -m src.features.feature_enginnering.py
+```
+
+## Expectations from the submission
+
+- The repo contains the code required for the generation of the data(`src\data_gen\generate_events.py`) 
+- The repo contains the code required for the parsing of the raw data into features(`src\features\feature_engineering.py`)
+- README contains the documentation, resources used and the commands required to run the code.
+- Repo doesnot contain the data folder that can be generated using the commands in the README
+
 
 
 
