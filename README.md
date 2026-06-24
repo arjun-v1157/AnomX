@@ -105,7 +105,11 @@ The dataset contains the following features for each user event.
 - creating visualizations and mathematics for the anomalous patterns
 - The scalability of the code increases as we use the config directory to specify the configurations of the dataset rather than hard-coding. 
 
+### Commands for generation of the data
 
+```
+python .\src\data_gen\generate_events.py 
+```
 
 
 
